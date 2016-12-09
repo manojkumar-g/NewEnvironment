@@ -1,0 +1,33 @@
+{
+  "name": "newenv",
+  "version": "1.0.0",
+  "description": "Nothing much",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manojkumargit/NewEnvironmentForReact.git"
+  },
+  "author": "Manoj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manojkumargit/NewEnvironmentForReact/issues"
+  },
+  "homepage": "https://github.com/manojkumargit/NewEnvironmentForReact#readme",
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.4.0",
+    "webpack": "^1.13.3"
+  }
+}
