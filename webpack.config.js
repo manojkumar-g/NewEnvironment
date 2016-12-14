@@ -1,15 +1,18 @@
 const webpack = require('webpack');
 const path = require('path');
+var ManifestPlugin = require('webpack-manifest-plugin');
 
 var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, 'src');
 
-console.log("hi");
 var config = {
-  entry : APP_DIR+"/index.js",
+  entry : {
+    main:APP_DIR+"/index.js",
+    vendor:['react']
+  },
   output : {
     path: BUILD_DIR,
-    filename: 'bundle.js'
+    filename:'main.[hash].js'
   },
   module : {
     loaders : [
@@ -25,7 +28,18 @@ var config = {
       }
 
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.[chunkhash].js',
+            minChunks: Infinity
+        }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.[hash].js' }),
+    new ManifestPlugin(),
+    new webpack.NamedModulesPlugin()
+  ]
 };
 
 module.exports = config;
+
