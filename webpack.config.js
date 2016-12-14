@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 var ManifestPlugin = require('webpack-manifest-plugin');
-
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, 'src');
 
@@ -12,7 +12,7 @@ var config = {
   },
   output : {
     path: BUILD_DIR,
-    filename:'main.[hash].js'
+    filename:'main.js'
   },
   module : {
     loaders : [
@@ -24,7 +24,7 @@ var config = {
       {
         test : /\.styl$/,
         include : APP_DIR,
-        loader : 'style-loader!css-loader!stylus-loader'
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader')
       }
 
     ]
@@ -32,14 +32,14 @@ var config = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            filename: 'vendor.[chunkhash].js',
+            filename: 'vendor.js',
             minChunks: Infinity
         }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.[hash].js' }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.js' }),
     new ManifestPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    new ExtractTextPlugin('[name].css')
   ]
 };
 
 module.exports = config;
-
