@@ -1,45 +1,37 @@
-const webpack = require('webpack');
-const path = require('path');
-var ManifestPlugin = require('webpack-manifest-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var BUILD_DIR = path.resolve(__dirname, 'dist');
-var APP_DIR = path.resolve(__dirname, 'src');
+  const webpack = require('webpack');
+  const path = require('path');
+  var BUILD_DIR = path.resolve(__dirname, 'dist');
+  var APP_DIR = path.resolve(__dirname, 'src');
 
-var config = {
-  entry : {
-    main:APP_DIR+"/index.js",
-    vendor:['react']
+  var config = {
+  devtool: 'cheap-module-eval-source-map',
+  entry: [
+    'webpack-hot-middleware/client',
+    './src/index'
+  ],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/static/'
   },
-  output : {
-    path: BUILD_DIR,
-    filename:'main.js'
-  },
-  module : {
-    loaders : [
-      {
-        test : /\.jsx?/,
-        include : APP_DIR,
-        loader : 'babel'
-      },
-      {
-        test : /\.styl$/,
-        include : APP_DIR,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!stylus-loader')
-      }
+    module : {
+      loaders : [
+        {
+          test : /\.js$/,
+          include : APP_DIR,
+          loaders: ['react-hot', 'babel']
+        },
+        {
+          test : /\.styl$/,
+          include : APP_DIR,
+          loader: 'style!css!stylus'
+        }
 
+      ]
+    },
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
     ]
-  },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'vendor.js',
-            minChunks: Infinity
-        }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.js' }),
-    new ManifestPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new ExtractTextPlugin('[name].css')
-  ]
-};
+  };
 
-module.exports = config;
+  module.exports = config;

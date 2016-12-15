@@ -5,9 +5,9 @@ import css from './styles/home.styl'
 class App extends React.Component{
   render(){
     return(
-      <h1>Que? Pasa</h1>
+      <h1>Hola! Como Esthas?</h1>
     );
   }
 }
 
-render(<App/>,document.getElementById('root'))
+render(<App/>,document.body);
