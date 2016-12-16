@@ -7,6 +7,7 @@ var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, 'src');
 
 var config = {
+  devtool: 'cheap-module-eval-source-map',
   entry : {
     main:APP_DIR+"/index.js",
     vendor:['react']
@@ -38,11 +39,15 @@ var config = {
         }),
     new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.[hash].js' }),
     new ManifestPlugin(),
-    new webpack.NamedModulesPlugin(),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       title: 'React',
       template:'my-index.ejs'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
     })
   ]
 };
