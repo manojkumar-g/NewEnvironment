@@ -1,13 +1,12 @@
 import React from 'react';
 import {render} from 'react-dom';
 import css from './styles/home.styl'
+import App from'./App'
 
-class App extends React.Component{
-  render(){
-    return(
-      <h1>Hola! Como Esthas?</h1>
-    );
+render(<App/>,document.getElementById('root'));
+window.alert("Am first");
+require.ensure([],
+  (require)=>{
+    require('./alert');
   }
-}
-
-render(<App/>,document.body);
+)

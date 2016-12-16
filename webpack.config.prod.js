@@ -13,7 +13,7 @@ var config = {
   },
   output : {
     path: BUILD_DIR,
-    filename:'main.js'
+    filename:'main.[hash].js'
   },
   module : {
     loaders : [
@@ -33,15 +33,16 @@ var config = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            filename: 'vendor.js',
+            filename: 'vendor.[chunkhash].js',
             minChunks: Infinity
         }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.js' }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.[hash].js' }),
     new ManifestPlugin(),
     new webpack.NamedModulesPlugin(),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       title: 'React',
+      template:'my-index.ejs'
     })
   ]
 };

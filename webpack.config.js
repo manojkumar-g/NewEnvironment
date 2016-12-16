@@ -5,13 +5,13 @@
 
   var config = {
   devtool: 'cheap-module-eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './src/index'
-  ],
+  entry : {
+    main:['webpack-hot-middleware/client',APP_DIR+"/index.js"],
+    vendor:['react']
+  },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'main.js',
     publicPath: '/static/'
   },
     module : {
@@ -30,6 +30,12 @@
       ]
     },
     plugins: [
+      new webpack.optimize.CommonsChunkPlugin({
+              name: 'vendor',
+              filename: 'vendor.js',
+              minChunks: Infinity
+          }),
+      new webpack.optimize.CommonsChunkPlugin({ name: 'meta', chunks: ['vendor'], filename: 'meta.js' }),
       new webpack.HotModuleReplacementPlugin()
     ]
   };
