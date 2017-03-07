@@ -2,6 +2,7 @@
   const path = require('path');
   var BUILD_DIR = path.resolve(__dirname, 'dist');
   var APP_DIR = path.resolve(__dirname, 'src');
+  var nib = require('nib');
 
   var config = {
   devtool: 'cheap-module-eval-source-map',
@@ -29,6 +30,9 @@
 
       ]
     },
+    stylus: {
+		use: [nib()]
+	 },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
               name: 'vendor',
