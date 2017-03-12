@@ -2,7 +2,11 @@
   const path = require('path');
   var BUILD_DIR = path.resolve(__dirname, 'dist');
   var APP_DIR = path.resolve(__dirname, 'src');
-  var nib = require('nib');
+  const jeet = require('jeet');
+  const rupture = require('rupture');
+  const axis = require('axis');
+  const autoprefix = require('autoprefixer-stylus');
+const nib = require('nib');
 
   var config = {
   devtool: 'cheap-module-eval-source-map',
@@ -18,7 +22,7 @@
     module : {
       loaders : [
         {
-          test : /\.js$/,
+          test : /\.jsx?$/,
           include : APP_DIR,
           loaders: ['react-hot', 'babel']
         },
@@ -31,8 +35,8 @@
       ]
     },
     stylus: {
-		use: [nib()]
-	 },
+		use: [jeet(),rupture(),axis(),autoprefix(),nib()]
+	   },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
               name: 'vendor',
